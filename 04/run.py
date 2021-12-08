@@ -11,14 +11,19 @@ boards = [
     for d in data_in[1:]
 ]
 
+boards_won = set()
 
 for nums in windowed(numbers, 5):
 
     for num in nums:
-        for b in boards:
-            b[b == num] *= -1
+
+        for n_board, b in enumerate(boards):
+            b[b == num] = -1
 
             for i in range(5):
-                if np.all(b[:, i] < 0) or np.all(b[i, :] < 0):
-                    print(sum(b[b>0]) * num)
-                    1/0
+                if np.all(b[:, i] == -1) or np.all(b[i, :] == -1):
+                    boards_won.add(n_board)
+
+                    if len(boards_won) == len(boards):
+                        print(sum(b[b > 0]) * num)
+                        1 / 0
