@@ -50,9 +50,9 @@ for (x_start, y_start), (x_end, y_end) in coords:
 
     else:
         for x, y in zip(range(x_start, x_end + 1), range(y_start, y_end + 1)):
-            if declining_x and not declining_y:
+            if declining_x:
                 x = x_end - x + x_start
-            if declining_y and not declining_x:
+            if declining_y:
                 y = y_end - y + y_start
 
             points[x][y].crosses += 1
