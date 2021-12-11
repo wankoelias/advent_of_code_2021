@@ -20,9 +20,8 @@ def bit_criteria(arr, search_for, bit=0):
     if arr.shape[0] == 1:
         return arr
 
-
     n_half = arr.shape[0] / 2.0
-    n_True = sum(arr[:,bit])
+    n_True = sum(arr[:, bit])
 
     if search_for == 1:
         if n_True >= n_half:
@@ -37,8 +36,8 @@ def bit_criteria(arr, search_for, bit=0):
 
     mask = arr[:, bit] == mask_value
 
+    return bit_criteria(arr[mask], search_for, bit + 1)
 
-    return bit_criteria(arr[mask], search_for, bit+1)
 
 def to_int(a):
     return int("".join([str(x) for x in a.astype(int)[0]]), 2)
