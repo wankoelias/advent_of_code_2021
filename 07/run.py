@@ -1,23 +1,21 @@
-from itertools import product
-from collections import defaultdict
-
 with open("input.txt") as f:
     positions = [int(x) for x in f.read().split(",")]
 
 
-lowest = None, None
+lowest = None
 
-for target_position in positions:
+for target_position in range(0, max(positions)):
     fuel = 0
 
     for position in positions:
-        fuel += abs(target_position - position)
+        steps = abs(target_position - position)
+        fuel += (steps * (steps + 1)) / 2
 
-    if lowest[0]:
-        if fuel < lowest[1]:
-            lowest = target_position, fuel
+    if lowest:
+        if fuel < lowest:
+            lowest = fuel
     else:
-        lowest = target_position, fuel
+        lowest = fuel
 
 
 print(lowest)
