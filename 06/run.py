@@ -1,27 +1,26 @@
 import re
+from collections import Counter
 
 with open("input.txt") as f:
-    timers = [int(x) for x in re.findall("\d+", f.read())]
+    timers = Counter([int(x) for x in re.findall("\d+", f.read())])
 
 day = 0
-last_day = 80
+last_day = 256
 
 while day < last_day:
 
-    new_timers = list()
-
     day += 1
 
-    for timer in timers:
-        timer -= 1
+    new_timers = Counter()
 
-        if timer == -1:
-            timer = 6
-            new_timers.append(8)
-
-        new_timers.append(timer)
-
+    for k, v in timers.items():
+        new_timers[k - 1] = v
     timers = new_timers
 
+    n_spawning = timers[-1]
+    timers[-1] = 0
 
-print(len(timers))
+    timers[8] += n_spawning
+    timers[6] += n_spawning
+
+print(sum(timers.values()))
