@@ -1,6 +1,6 @@
-from collections import defaultdict
+from collections import defaultdict, Counter
 
-with open("input.txt") as f:
+with open("test_input.txt") as f:
     data_in = f.read().split("\n")
 
 cave = defaultdict(lambda: set())
@@ -22,10 +22,22 @@ def find_paths(node, visited=set(), path=list()):
 
     blocked = {x for x in visited if x.islower()}
 
-    possible_next = cave[node] - blocked
+    blocked_small_caves = blocked - {"start", "end"}
 
     visited.add(node)
     path.append(node)
+
+    double_visits = len(
+        [
+            k
+            for k, v in Counter(path).items()
+            if k.islower() and k not in ("start", "end") and v > 1
+        ]
+    )
+
+    small_revisit = blocked_small_caves if double_visits == 0 else set()
+
+    possible_next = (cave[node] - blocked).union(small_revisit & cave[node])
 
     for next_node in possible_next:
         find_paths(next_node, visited.copy(), path.copy())
