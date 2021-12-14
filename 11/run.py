@@ -27,17 +27,23 @@ def flash_and_increase(flashed):
             nflashed += 1
 
     if np.any(np.any((arr > 9) & ~flashed)):
-        flash_and_increase(flashed)
+        flashed = flash_and_increase(flashed)
+    return flashed
 
 
 def step():
 
     global arr
     arr += 1
-    flash_and_increase(np.zeros(shape=arr.shape, dtype=bool))
+    flashed = flash_and_increase(np.zeros(shape=arr.shape, dtype=bool))
     arr[arr > 9] = 0
 
+    return flashed
 
-for i in range(100):
-    step()
-print(nflashed)
+
+i = 0
+while True:
+    i += 1
+    if np.all(step()):
+        print(i)
+        break
