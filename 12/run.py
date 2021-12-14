@@ -26,13 +26,7 @@ def find_paths(node, path=list()):
 
     path.append(node)
 
-    double_visits = len(
-        {
-            x
-            for x in path
-            if x.islower() and x not in ("start", "end") and path.count(x) > 1
-        }
-    )
+    double_visits = len({x for x in path if x.islower() and path.count(x) > 1})
 
     small_revisit = blocked_small_caves if double_visits == 0 else set()
 
