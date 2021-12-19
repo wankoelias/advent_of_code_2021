@@ -29,14 +29,6 @@ class Dot:
         setattr(self, attr, value)
         dots[self._x][self._y] = self
 
-    @x.setter
-    def x(self, value):
-        self.setxy("_X", value)
-
-    @y.setter
-    def y(self, value):
-        self.setxy("_y", value)
-
     def fold(self, axis, fold_pos):
         if getattr(self, axis) > fold_pos:
 
@@ -65,6 +57,3 @@ for d in iterdots():
 
 plt.imshow(arr)
 plt.show()
-
-
-# print(len(list(iterdots())))
