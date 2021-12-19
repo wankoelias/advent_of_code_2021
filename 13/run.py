@@ -1,5 +1,7 @@
-from collections import defaultdict
 import re
+import numpy as np
+import matplotlib.pyplot as plt
+from collections import defaultdict
 
 with open("input.txt") as f:
     dot_input, fold_input = f.read().split("\n\n")
@@ -54,6 +56,15 @@ for f in fold_input.split("\n"):
 
     for p in list(iterdots()):
         p.fold(axis, pos)
-    break
 
-print(len(list(iterdots())))
+shape = list(map(lambda m: max(m) + 1, zip(*[(p.y, p.x) for p in iterdots()])))
+
+arr = np.zeros(shape)
+for d in iterdots():
+    arr[d.y, d.x] = 1
+
+plt.imshow(arr)
+plt.show()
+
+
+# print(len(list(iterdots())))
