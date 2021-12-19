@@ -13,29 +13,21 @@ iterdots = lambda: (dots[x][y] for x in dots for y in dots[x] if dots[x][y])
 class Dot:
     def __init__(self, x, y):
         dots[x][y] = self
-        self._x = x
-        self._y = y
-
-    @property
-    def x(self):
-        return self._x
-
-    @property
-    def y(self):
-        return self._y
+        self.x = x
+        self.y = y
 
     def setxy(self, attr, value):
-        dots[self._x][self._y] = None
+        dots[self.x][self.y] = None
         setattr(self, attr, value)
-        dots[self._x][self._y] = self
+        dots[self.x][self.y] = self
 
     def fold(self, axis, fold_pos):
         if getattr(self, axis) > fold_pos:
 
-            self.setxy("_" + axis, fold_pos - (getattr(self, axis) - fold_pos))
+            self.setxy(axis, fold_pos - (getattr(self, axis) - fold_pos))
 
     def __repr__(self):
-        return f"Dot({self._x}, {self._y})"
+        return f"Dot({self.x}, {self.y})"
 
 
 for p in dot_input.split("\n"):
