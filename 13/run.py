@@ -23,7 +23,6 @@ class Dot:
 
     def fold(self, axis, fold_pos):
         if getattr(self, axis) > fold_pos:
-
             self.setxy(axis, fold_pos - (getattr(self, axis) - fold_pos))
 
     def __repr__(self):
